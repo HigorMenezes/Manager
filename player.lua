@@ -44,6 +44,3 @@ function Player:draw()
 	love.graphics.setColor(255, 255, 255)
     love.graphics.circle("fill", self.x or 10, self.y or 10, 20)
 end
-
-function Player:keypressed(key, unicode)
-end

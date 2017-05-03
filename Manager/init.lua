@@ -1,2 +1,5 @@
-local BASE = (...) .. '/'
-return require(BASE .. "manager")
+local BASE = (...) .. '.'
+
+return {
+	require(BASE .. 'manager')
+}
