@@ -1,5 +1,3 @@
-require("manager")
-
 Player = {}
 
 function Player:load()
@@ -47,23 +45,5 @@ function Player:draw()
     love.graphics.circle("fill", self.x or 10, self.y or 10, 20)
 end
 
-function love.keypressed(key, unicode)
-    if key == "p" then
-    	Manager:pauseAll(Player)
-    end
-    if key == "o" then
-    	Manager:pauseUpdate(Player)
-    end
-    if key == "i" then
-    	Manager:pauseDraw(Player)
-    end
-    if key == "u" then
-    	Manager:remove(Player)
-    end
-    if key == "y" then
-    	Manager:add(Player)
-    end
-    if key == "l" then
-    	Manager:swap(Player, Circle)
-    end
+function Player:keypressed(key, unicode)
 end

@@ -13,7 +13,7 @@ function Manager:add(data, pauseAll, pauseUpdate, pauseDraw) -- Add
 	end
 end
 
-function Manager:pauseAll(data) -- Pause All
+function Manager:pauseAll(data) -- Pausa update e draw
 	for i=1,#self do
 		if self[i][1] == data then
 			if self[i][2] == true and self[i][3] == true then
@@ -59,7 +59,7 @@ function Manager:remove(data) -- Remove
 	end
 end
 
-function Manager:swap(data1, data2)
+function Manager:swap(data1, data2) -- Troca a ordem de impressão
 	local positionData1 = Manager:position(data1)
 	local positionData2 = Manager:position(data2)
 
@@ -68,10 +68,9 @@ function Manager:swap(data1, data2)
 		self[positionData1] = self[positionData2]
 		self[positionData2] = auxData
 	end
-
 end
 
-function Manager:exist(data)
+function Manager:exist(data) -- Existencia do modulo
 	for i=1,#self do
 		if data == self[i][1] then
 			return true
@@ -80,7 +79,7 @@ function Manager:exist(data)
 	return false
 end
 
-function Manager:position(data)
+function Manager:position(data) -- Posilçao de impressão do modulo
 	for i=1,#self do
 		if data == self[i][1] then
 			return i
@@ -92,17 +91,22 @@ end
 -- Callbacks functions
 function Manager:update(dt)
 	for i=1,#self do
-		if self[i][2] then
-			self[i][1]:update(dt)
+		if self[i][2] and self[i][1]:update(dt) then
 		end
 	end
 end
 
 function Manager:draw()
 	for i=1,#self do
-		if self[i][3] then
-			self[i][1]:draw()
+		if self[i][3] and self[i][1]:draw() then
 		end
 	end
 end
 
+function Manager:keypressed(key, unicode)
+	for i=1,#self do
+		if self[i][2] then
+			self[i][1]:keypressed(key, unicode)
+		end
+	end
+end
