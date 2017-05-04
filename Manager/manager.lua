@@ -1,41 +1,13 @@
 Manager = {}
 
---[[
-ALL CALLBACKS
-love.directorydropped
-love.draw*
-love.errhand
-love.filedropped
-love.focus
-love.keypressed*
-love.keyreleased*
-love.load*
-love.lowmemory
-love.mousefocus
-love.mousemoved*
-love.mousepressed*
-love.mousereleased*
-love.quit
-love.resize
-love.run
-love.textedited
-love.textinput
-love.threaderror
-love.touchmoved
-love.touchpressed
-love.touchreleased
-love.update*
-love.visible
-love.wheelmoved
-]]--
-
 local models = {}
 
 local update = {}
 local draw = {}
 local keypressed = {}
+local mousepressed = {}
 
---Functions Manager
+-- Functions Manager -------------------------------------------------------------------------------------------------------
 function Manager:add(model) -- Add
 	if #models > 0 then
 		if not exist(model, models) then
@@ -78,6 +50,14 @@ function Manager:remove(model) -- Remove
 			break
 		end
 	end
+
+	for i=1,#mousepressed do
+		if mousepressed[i] == model then
+			table.remove(mousepressed, i)
+			break
+		end
+	end
+	--[[Muda sempre que adiciona algo]]--
 end
 
 function Manager:pauseUpdate(model) -- Pause Update
@@ -88,6 +68,7 @@ function Manager:pauseUpdate(model) -- Pause Update
 		end
 	end
 end
+
 function Manager:resumeUpdate(model) -- Pause Update
 	if not exist(model, update) and exist(model, models) then	
 		table.insert(update, model)
@@ -101,6 +82,7 @@ function Manager:pauseDraw(model) -- Pause Draw
 		end
 	end
 end
+
 function Manager:resumeDraw(model) -- Pause Draw
 	for i=1,#draw do
 		if draw[i][1] == model then
@@ -119,8 +101,9 @@ function Manager:swapDraw(model1, model2) -- Troca a ordem de impressão
 		draw[positionModel2] = auxData
 	end
 end
+-------------------------------------------------------------------------------------------------------------
 
--- Callbacks functions
+-- Callbacks functions --------------------------------------------------------------------------------------
 function Manager:update(dt)
 	for i=1,#update do
 		update[i]:update(dt)
@@ -137,11 +120,18 @@ end
 
 function Manager:keypressed(key, unicode)
 	for i=1,#keypressed do
-		keyoressed[i]:keypressed(key, unicode)
+		keypressed[i]:keypressed(key, unicode)
 	end
 end
+function Manager:mousepressed(x, y, button, istouch)
+	for i=1,#mousepressed do
+		mousepressed[i]:mousepressed(x, y, button, istouch)
+	end
+end
+	--[[Muda sempre que adiciona algo]]--
+---------------------------------------------------------------------------------------------------------------
 
--- Funções
+-- Functions --------------------------------------------------------------------------------------------------
 function split(model)
 	if model.update then
 		table.insert(update, model)
@@ -152,6 +142,10 @@ function split(model)
 	if model.keypressed then
 		table.insert(keypressed, model)
 	end
+	if model.mousepressed then
+		table.insert(mousepressed, model)
+	end
+	--[[Muda sempre que adiciona algo]]--
 end
 
 function exist(model, tableSearch) -- Existencia do modulo
@@ -171,3 +165,33 @@ function position(model, tableSearch) -- Posilçao de impressão do modulo
 	end
 	return -1
 end
+-------------------------------------------------------------------------------------------------------------
+
+--[[
+ALL CALLBACKS
+love.directorydropped
+love.draw* --
+love.errhand
+love.filedropped
+love.focus
+love.keypressed* --
+love.keyreleased*
+love.load* --
+love.lowmemory
+love.mousefocus
+love.mousemoved*
+love.mousepressed* --
+love.mousereleased*
+love.quit
+love.resize
+love.run
+love.textedited
+love.textinput
+love.threaderror
+love.touchmoved
+love.touchpressed
+love.touchreleased
+love.update* --
+love.visible
+love.wheelmoved
+]]--

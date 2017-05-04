@@ -39,3 +39,7 @@ function love.keypressed(key, unicode)
         Manager:add(Player)
     end
 end
+
+function love.mousepressed(x, y, button, istouch)
+    Manager:mousepressed(x, y, button, istouch)
+end
