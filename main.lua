@@ -1,8 +1,6 @@
 require("player")
 require("circle")
 require("manager")
---init.lua -- PARA DAR REQUIRE NA PASTA
---assent -- PARA MOSTRAR O ERRO
 
 function love.load()
 	Manager:add(Player)
@@ -19,23 +17,25 @@ end
 
 function love.keypressed(key, unicode)
     Manager:keypressed(key, unicode)
-
     if key == "p" then
-        Manager:pauseAll(Player)
+        Manager:pauseUpdate(Player)
     end
     if key == "o" then
-        Manager:pauseUpdate(Player)
+        Manager:resumeUpdate(Player)
     end
     if key == "i" then
         Manager:pauseDraw(Player)
     end
     if key == "u" then
-        Manager:remove(Player)
-    end
-    if key == "y" then
-        Manager:add(Player)
+        Manager:resumeDraw(Player)
     end
     if key == "l" then
-        Manager:swap(Player, Circle)
+        Manager:swapDraw(Player, Circle)
+    end
+    if key == "k" then
+        Manager:remove(Player)
+    end
+    if key == "j" then
+        Manager:add(Player)
     end
 end

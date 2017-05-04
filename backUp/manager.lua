@@ -1,7 +1,7 @@
 Manager = {}
 
 --[[
-ALL CALLBACKS
+TODAS AS CALLBACKS
 love.directorydropped
 love.draw*
 love.errhand
@@ -35,6 +35,9 @@ local update = {}
 local draw = {}
 local keypressed = {}
 
+local BASE = (...):match('(.-)[^%.]+$')
+--require(BASE .. "functionManager")
+
 --Functions Manager
 function Manager:add(model) -- Add
 	if #models > 0 then
@@ -50,7 +53,7 @@ function Manager:add(model) -- Add
 	end
 end
 
-function Manager:remove(model) -- Remove
+function Manager:remove(model)
 	for i=1,#models do
 		if models[i] == model then
 			table.remove(models, i)
@@ -89,7 +92,7 @@ function Manager:pauseUpdate(model) -- Pause Update
 	end
 end
 function Manager:resumeUpdate(model) -- Pause Update
-	if not exist(model, update) and exist(model, models) then	
+	if not exist(model, update) then	
 		table.insert(update, model)
 	end
 end
@@ -163,9 +166,9 @@ function exist(model, tableSearch) -- Existencia do modulo
 	return false
 end
 
-function position(model, tableSearch) -- Posilçao de impressão do modulo
-	for i=1,#tableSearch do
-		if model == tableSearch[i][1] then
+function position(model) -- Posilçao de impressão do modulo
+	for i=1,#models do
+		if model == models[i] then
 			return i
 		end
 	end
