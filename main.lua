@@ -43,3 +43,11 @@ end
 function love.mousepressed(x, y, button, istouch)
     Manager:mousepressed(x, y, button, istouch)
 end
+
+function love.mousemoved(x, y, dx, dy, istouch)
+    Manager:mousemoved(x, y, dx, dy, istouch)
+end
+
+function love.wheelmoved(x, y)
+    Manager:wheelmoved(x, y)
+end

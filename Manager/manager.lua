@@ -6,6 +6,10 @@ local update = {}
 local draw = {}
 local keypressed = {}
 local mousepressed = {}
+local mousemoved = {}
+local wheelmoved = {}
+
+--[[MUDA SEMPRE QUE INSERIR ALGO]]--
 
 -- Functions Manager -------------------------------------------------------------------------------------------------------
 function Manager:add(model) -- Add
@@ -54,6 +58,20 @@ function Manager:remove(model) -- Remove
 	for i=1,#mousepressed do
 		if mousepressed[i] == model then
 			table.remove(mousepressed, i)
+			break
+		end
+	end
+
+	for i=1,#mousemoved do
+		if mousemoved[i] == model then
+			table.remove(mousemoved, i)
+			break
+		end
+	end
+
+	for i=1,#wheelmoved do
+		if wheelmoved[i] == model then
+			table.remove(wheelmoved, i)
 			break
 		end
 	end
@@ -123,9 +141,22 @@ function Manager:keypressed(key, unicode)
 		keypressed[i]:keypressed(key, unicode)
 	end
 end
+
 function Manager:mousepressed(x, y, button, istouch)
 	for i=1,#mousepressed do
 		mousepressed[i]:mousepressed(x, y, button, istouch)
+	end
+end
+
+function Manager:mousemoved(x, y, dx, dy, istouch)
+	for i=1,#mousemoved do
+		mousemoved[i]:mousemoved(x, y, dx, dy, istouch)
+	end
+end
+
+function Manager:wheelmoved(x, y)
+	for i=1,#wheelmoved do
+		wheelmoved[i]:wheelmoved(x, y)
 	end
 end
 	--[[Muda sempre que adiciona algo]]--
@@ -144,6 +175,12 @@ function split(model)
 	end
 	if model.mousepressed then
 		table.insert(mousepressed, model)
+	end
+	if model.mousemoved then
+		table.insert(mousemoved, model)
+	end
+	if model.wheelmoved then
+		table.insert(wheelmoved, model)
 	end
 	--[[Muda sempre que adiciona algo]]--
 end
@@ -179,7 +216,7 @@ love.keyreleased*
 love.load* --
 love.lowmemory
 love.mousefocus
-love.mousemoved*
+love.mousemoved* -- 
 love.mousepressed* --
 love.mousereleased*
 love.quit
@@ -193,5 +230,5 @@ love.touchpressed
 love.touchreleased
 love.update* --
 love.visible
-love.wheelmoved
+love.wheelmoved* --
 ]]--

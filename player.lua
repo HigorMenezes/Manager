@@ -2,6 +2,9 @@ Player = {}
 
 local flagM = false
 local flagT = false
+local flagMM = false
+local dxM = 0
+local wheelY = 0
 
 function Player:load()
 	  self.x = 10
@@ -52,6 +55,8 @@ function Player:draw()
     if flagT then
         love.graphics.print("APERTOU O TECLADO")
     end
+    love.graphics.print("" .. dxM)
+    love.graphics.print("\n" .. wheelY)
 end
 
 function Player:mousepressed(x, y, button, istouch)
@@ -64,4 +69,12 @@ function Player:keypressed(key, unicode)
     if key == "m" then
         flagT = true
     end
+end
+
+function Player:mousemoved(x, y, dx, dy, istouch)
+    dxM = dx
+end
+
+function Player:wheelmoved(x, y)
+    wheelY = y
 end
