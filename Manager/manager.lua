@@ -10,7 +10,9 @@ local mousemoved = {}
 local wheelmoved = {}
 local keyreleased = {}
 local mousereleased = {}
-
+local touchpressed = {}
+local touchreleased = {}
+local touchmoved = {}
 --[[MUDA SEMPRE QUE INSERIR ALGO]]--
 
 -- Functions Manager -------------------------------------------------------------------------------------------------------
@@ -88,6 +90,27 @@ function Manager:remove(model) -- Remove
 	for i=1,#mousereleased do
 		if mousereleased[i] == model then
 			table.remove(mousereleased, i)
+			break
+		end
+	end
+
+	for i=1,#touchpressed do
+		if touchpressed[i] == model then
+			table.remove(touchpressed, i)
+			break
+		end
+	end
+
+	for i=1,#touchreleased do
+		if touchreleased[i] == model then
+			table.remove(touchreleased, i)
+			break
+		end
+	end
+
+	for i=1,#touchmoved do
+		if touchmoved[i] == model then
+			table.remove(touchmoved, i)
 			break
 		end
 	end
@@ -187,6 +210,24 @@ function Manager:mousereleased(x, y, button)
 		mousereleased[i]:mousereleased(x, y, button)
 	end
 end
+
+function Manager:touchpressed(id, x, y, dx, dy, pressure)
+	for i=1,#touchpressed do
+		touchpressed[i]:touchpressed(id, x, y, dx, dy, pressure)
+	end
+end
+
+function Manager:touchreleased(id, x, y, dx, dy, pressure)
+	for i=1,#touchreleased do
+		touchreleased[i]:touchreleased(id, x, y, dx, dy, pressure)
+	end
+end
+
+function Manager:touchmoved(id, x, y, dx, dy, pressure)
+	for i=1,#touchmoved do
+		touchmoved[i]:touchmoved(id, x, y, dx, dy, pressure)
+	end
+end
 	--[[Muda sempre que adiciona algo]]--
 ---------------------------------------------------------------------------------------------------------------
 
@@ -215,6 +256,15 @@ function split(model)
 	end
 	if model.mousereleased then
 		table.insert(mousereleased, model)
+	end
+	if model.touchpressed then
+		table.insert(touchpressed, model)
+	end
+	if model.touchreleased then
+		table.insert(touchreleased, model)
+	end
+	if model.touchmoved then
+		table.insert(touchmoved, model)
 	end
 	--[[Muda sempre que adiciona algo]]--
 end
@@ -259,9 +309,9 @@ love.run
 love.textedited
 love.textinput
 love.threaderror
-love.touchmoved
-love.touchpressed
-love.touchreleased
+love.touchmoved* 
+love.touchpressed* --
+love.touchreleased* --
 love.update* --
 love.visible
 love.wheelmoved* --

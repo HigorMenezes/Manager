@@ -90,3 +90,12 @@ function Player:mousereleased(x, y, button)
 		flagM = false
 	end
 end
+
+function Player:touchpressed(id, x, y, dx, dy, pressure)
+end
+
+function Player:touchreleased(id, x, y, dx, dy, pressure)
+end
+
+function Player:touchmoved(id, x, y, dx, dy, pressure)
+end

@@ -59,3 +59,15 @@ end
 function love.mousereleased(x, y, button)
 	Manager:mousereleased(x, y, button)
 end
+
+function love.touchpressed(id, x, y, dx, dy, pressure)
+	Manager:touchpressed(id, x, y, dx, dy, pressure)
+end
+
+function love.touchreleased(id, x, y, dx, dy, pressure)
+	Manager:touchreleased(id, x, y, dx, dy, pressure)
+end
+
+function love.touchmoved(id, x, y, dx, dy, pressure)
+	Manager:touchmoved(id, x, y, dx, dy, pressure)
+end
