@@ -9,6 +9,7 @@ local mousepressed = {}
 local mousemoved = {}
 local wheelmoved = {}
 local keyreleased = {}
+local mousereleased = {}
 
 --[[MUDA SEMPRE QUE INSERIR ALGO]]--
 
@@ -80,6 +81,13 @@ function Manager:remove(model) -- Remove
 	for i=1,#keyreleased do
 		if keyreleased[i] == model then
 			table.remove(keyreleased, i)
+			break
+		end
+	end
+
+	for i=1,#mousereleased do
+		if mousereleased[i] == model then
+			table.remove(mousereleased, i)
 			break
 		end
 	end
@@ -173,6 +181,12 @@ function Manager:keyreleased(key, scancode)
 		keyreleased[i]:keyreleased(key, scancode)
 	end
 end
+
+function Manager:mousereleased(x, y, button)
+	for i=1,#mousereleased do
+		mousereleased[i]:mousereleased(x, y, button)
+	end
+end
 	--[[Muda sempre que adiciona algo]]--
 ---------------------------------------------------------------------------------------------------------------
 
@@ -198,6 +212,9 @@ function split(model)
 	end
 	if model.keyreleased then
 		table.insert(keyreleased, model)
+	end
+	if model.mousereleased then
+		table.insert(mousereleased, model)
 	end
 	--[[Muda sempre que adiciona algo]]--
 end
@@ -229,13 +246,13 @@ love.errhand
 love.filedropped
 love.focus
 love.keypressed* --
-love.keyreleased*
+love.keyreleased* --
 love.load* --
 love.lowmemory
 love.mousefocus
 love.mousemoved* -- 
 love.mousepressed* --
-love.mousereleased*
+love.mousereleased* -- 
 love.quit
 love.resize
 love.run
