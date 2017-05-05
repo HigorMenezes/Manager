@@ -51,3 +51,7 @@ end
 function love.wheelmoved(x, y)
     Manager:wheelmoved(x, y)
 end
+
+function love.keyreleased(key, scancode)
+    Manager:keyreleased(key, scancode)
+end

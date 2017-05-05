@@ -8,6 +8,7 @@ local keypressed = {}
 local mousepressed = {}
 local mousemoved = {}
 local wheelmoved = {}
+local keyreleased = {}
 
 --[[MUDA SEMPRE QUE INSERIR ALGO]]--
 
@@ -72,6 +73,13 @@ function Manager:remove(model) -- Remove
 	for i=1,#wheelmoved do
 		if wheelmoved[i] == model then
 			table.remove(wheelmoved, i)
+			break
+		end
+	end
+
+	for i=1,#keyreleased do
+		if keyreleased[i] == model then
+			table.remove(keyreleased, i)
 			break
 		end
 	end
@@ -159,6 +167,12 @@ function Manager:wheelmoved(x, y)
 		wheelmoved[i]:wheelmoved(x, y)
 	end
 end
+
+function Manager:keyreleased(key, scancode)
+	for i=1,#keyreleased do
+		keyreleased[i]:keyreleased(key, scancode)
+	end
+end
 	--[[Muda sempre que adiciona algo]]--
 ---------------------------------------------------------------------------------------------------------------
 
@@ -181,6 +195,9 @@ function split(model)
 	end
 	if model.wheelmoved then
 		table.insert(wheelmoved, model)
+	end
+	if model.keyreleased then
+		table.insert(keyreleased, model)
 	end
 	--[[Muda sempre que adiciona algo]]--
 end

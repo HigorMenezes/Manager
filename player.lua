@@ -78,3 +78,9 @@ end
 function Player:wheelmoved(x, y)
     wheelY = y
 end
+
+function Player:keyreleased(key, scancode)
+    if key == "m" then
+        flagT = false
+    end
+end
